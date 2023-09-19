@@ -1,0 +1,297 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="MyMapObjects.moAttributes" Collapsed="true">
+    <Position X="9.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABEAAAAAAAAAAAgAAAQACCAAgAABAABA=</HashCode>
+      <FileName>moAttributes.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyMapObjects.moClassBreaksRenderer" Collapsed="true">
+    <Position X="2.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEABAAAAAIBECgAAAABACAACCAQAgAAAQAGEAIAEgBg=</HashCode>
+      <FileName>moClassBreaksRenderer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyMapObjects.moFeature" Collapsed="true">
+    <Position X="11.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAgAIAAAAAgAAAQAAAAAAACAEAAAAAAiBA=</HashCode>
+      <FileName>moFeature.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyMapObjects.moFeatures" Collapsed="true">
+    <Position X="13.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAABEAAAAAAAAQAAAAAAAAACAAAAABAAAA=</HashCode>
+      <FileName>moFeatures.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyMapObjects.moField" Collapsed="true">
+    <Position X="15" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAEAAAAAAAIARAAAAEAAAAAAAAAAAAkBA=</HashCode>
+      <FileName>moField.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyMapObjects.moFields" Collapsed="true">
+    <Position X="16.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABgAAAAAAAAEAAAQAAAARAgAAQAQAACQCAAAAAAAA=</HashCode>
+      <FileName>moFields.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyMapObjects.moGeometry" Collapsed="true">
+    <Position X="5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>moGeometry.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyMapObjects.moLabelRenderer" Collapsed="true">
+    <Position X="9.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAgABAAEAEgAA=</HashCode>
+      <FileName>moLabelRenderer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyMapObjects.moLayers" Collapsed="true">
+    <Position X="11.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEIAAAAAAAAAAEAAAAAABAQAEAAKAAAICAAAAABAAAA=</HashCode>
+      <FileName>moLayers.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyMapObjects.moMapDrawingReference" Collapsed="true">
+    <Position X="13.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAIAQAAAAQgAAAAAEAkIAQIAAADQgAYCSAAAAAA=</HashCode>
+      <FileName>moMapDrawingReference.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyMapObjects.moMapDrawingTools" Collapsed="true">
+    <Position X="15" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gBAAAAAQAAAAAAAAAAAACAAAAggAABApAEUgAAAAABE=</HashCode>
+      <FileName>moMapDrawingTools.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyMapObjects.moMapLayer" Collapsed="true">
+    <Position X="16.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>UQBCALAAGBwnEZUAAAABMgQIAAAAABAMCADBAAwACtA=</HashCode>
+      <FileName>moMapLayer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyMapObjects.moMapTools" Collapsed="true">
+    <Position X="9.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEBAAAACAIJIAQAACABQAAAAAAAAAgQABAAKAAw=</HashCode>
+      <FileName>moMapTools.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyMapObjects.moMultiPolygon" Collapsed="true">
+    <Position X="2.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>MQCAABAyAAAAAAAAABAgAAAAAAAAAAQAEAAAAAAACBA=</HashCode>
+      <FileName>moMultiPolygon.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyMapObjects.moMultiPolyline" Collapsed="true">
+    <Position X="5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>MQCAABAyAAAAAAAAABAgAAAAAAAAAAQAEAAAAAAACBA=</HashCode>
+      <FileName>moMultiPolyline.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyMapObjects.moParts" Collapsed="true">
+    <Position X="11.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAABEAAAAAAAAQAAAAAAAAAAAAAAAAECBA=</HashCode>
+      <FileName>moParts.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyMapObjects.moPoint" Collapsed="true">
+    <Position X="7.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAYBA=</HashCode>
+      <FileName>moPoint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyMapObjects.moPoints" Collapsed="true">
+    <Position X="13.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>MSKAAFAyAAAAAEAAAAAgAAQAAAAAAAQAmAAAAABEABA=</HashCode>
+      <FileName>moPoints.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyMapObjects.moProjectionCS" Collapsed="true">
+    <Position X="15" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>UkoIonZB0AFAoBsAhCAACQAQgkAd4gHiMcoYEQDCVAE=</HashCode>
+      <FileName>moProjectionCS.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyMapObjects.moRectangle" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>MADAAAAyBAAAAAAAAAAAAEAAAAAAAAQAEAAAAAAAAAA=</HashCode>
+      <FileName>moRectangle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyMapObjects.moRenderer" Collapsed="true">
+    <Position X="2.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>moRenderer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyMapObjects.moShape" Collapsed="true">
+    <Position X="3.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>moShape.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyMapObjects.moShapeFlashControler" Collapsed="true">
+    <Position X="16.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEQAAABIAAAAAAAAAAAAAAAgAAAJAQAAAAQCAAAAQA=</HashCode>
+      <FileName>moShapeFlashControler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyMapObjects.moSimpleFillSymbol" Collapsed="true">
+    <Position X="0.5" Y="5.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAEAABAhAAAYAIAAAAAAAIAAAIAAAAgAAAABA=</HashCode>
+      <FileName>moSimpleFillSymbol.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyMapObjects.moSimpleLineSymbol" Collapsed="true">
+    <Position X="2.75" Y="5.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAEAAhggAAAAAIAAIAAAAIAAAIBAAAgAAAABA=</HashCode>
+      <FileName>moSimpleLineSymbol.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyMapObjects.moSimpleMarkerSymbol" Collapsed="true">
+    <Position X="5" Y="5.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAEAAhggAAAAAIAAIAAAAIAAAIBAAAgAAAABA=</HashCode>
+      <FileName>moSimpleMarkerSymbol.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyMapObjects.moSimpleRenderer" Collapsed="true">
+    <Position X="1" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACBA=</HashCode>
+      <FileName>moSimpleRenderer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyMapObjects.moSymbol" Collapsed="true">
+    <Position X="2.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>moSymbol.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyMapObjects.moTextSymbol" Collapsed="true">
+    <Position X="9.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAgAAABSgAQCAAAAAAAAAAAgDAAAAAAAICARI=</HashCode>
+      <FileName>moTextSymbol.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyMapObjects.moUniqueValueRenderer" Collapsed="true">
+    <Position X="5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEABAAAAIIAECgAACAAAAgAAAIAAgAAAAAGAAAAEgBg=</HashCode>
+      <FileName>moUniqueValueRenderer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyMapObjects.moUserDrawingTool" Collapsed="true">
+    <Position X="11.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>kBAAAAIQAAAAAAAAAAAAGAAAAAAAIAAoAEYCQAAACAA=</HashCode>
+      <FileName>moUserDrawingTool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyMapObjects.MyMapControl" Collapsed="true">
+    <Position X="13.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>SAFIIEIAQqIAAAAABAKIIBULEQFIAAQVAK4ECSYwAYg=</HashCode>
+      <FileName>MyMapControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyMapObjects.Properties.Resources" Collapsed="true">
+    <Position X="15" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="MyMapObjects.moValueTypeConstant" Collapsed="true">
+    <Position X="15" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAABAAAAAAAAEAAMAAAAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>moEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="MyMapObjects.moSymbolTypeConstant" Collapsed="true">
+    <Position X="11.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAADAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>moEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="MyMapObjects.moSimpleMarkerSymbolStyleConstant" Collapsed="true">
+    <Position X="9.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAEAABAEAAAAQAAAgAAAAAAAAgAAAAgAA=</HashCode>
+      <FileName>moEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="MyMapObjects.moSimpleLineSymbolStyleConstant" Collapsed="true">
+    <Position X="16.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAAAAAAAAAAACAAAAAAoAAAAAAAAAAA=</HashCode>
+      <FileName>moEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="MyMapObjects.moGeometryTypeConstant" Collapsed="true">
+    <Position X="9.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAQAAAAAAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>moEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="MyMapObjects.moRendererTypeConstant" Collapsed="true">
+    <Position X="15" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABAAAAEAAAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>moEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="MyMapObjects.moTextSymbolAlignmentConstant" Collapsed="true">
+    <Position X="13.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAIAEAAABAAAQAAAQAAAAAAAAAAAAAAAAgAQEA=</HashCode>
+      <FileName>moEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="MyMapObjects.moProjectionTypeConstant" Collapsed="true">
+    <Position X="13.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAEAAAAAAAAAAAAAgAAAAAAAAAIAEAAAg=</HashCode>
+      <FileName>moEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="MyMapObjects.moLinearUnitConstant" Collapsed="true">
+    <Position X="11.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAEAAAAAAAAABAAAAAAAAEAAgAAAAAAAAAA=</HashCode>
+      <FileName>moEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>
