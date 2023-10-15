@@ -110,10 +110,10 @@ namespace FSGIS
             this.创建要素,
             this.编辑要素,
             this.移动要素});
-            this.toolStrip.Location = new System.Drawing.Point(0, 28);
+            this.toolStrip.Location = new System.Drawing.Point(0, 30);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this.toolStrip.Size = new System.Drawing.Size(1039, 27);
+            this.toolStrip.Size = new System.Drawing.Size(1039, 31);
             this.toolStrip.TabIndex = 3;
             this.toolStrip.Text = "toolStrip1";
             // 
@@ -123,7 +123,7 @@ namespace FSGIS
             this.箭头.Image = ((System.Drawing.Image)(resources.GetObject("箭头.Image")));
             this.箭头.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.箭头.Name = "箭头";
-            this.箭头.Size = new System.Drawing.Size(29, 24);
+            this.箭头.Size = new System.Drawing.Size(29, 28);
             this.箭头.Text = "箭头";
             this.箭头.Click += new System.EventHandler(this.箭头_Click);
             // 
@@ -133,7 +133,7 @@ namespace FSGIS
             this.拖动.Image = ((System.Drawing.Image)(resources.GetObject("拖动.Image")));
             this.拖动.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.拖动.Name = "拖动";
-            this.拖动.Size = new System.Drawing.Size(29, 24);
+            this.拖动.Size = new System.Drawing.Size(29, 28);
             this.拖动.Text = "拖动";
             this.拖动.Click += new System.EventHandler(this.拖动_Click);
             // 
@@ -143,7 +143,7 @@ namespace FSGIS
             this.缩放到全图.Image = ((System.Drawing.Image)(resources.GetObject("缩放到全图.Image")));
             this.缩放到全图.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.缩放到全图.Name = "缩放到全图";
-            this.缩放到全图.Size = new System.Drawing.Size(29, 24);
+            this.缩放到全图.Size = new System.Drawing.Size(29, 28);
             this.缩放到全图.Text = "缩放到全图";
             this.缩放到全图.Click += new System.EventHandler(this.缩放到全图_Click);
             // 
@@ -153,7 +153,7 @@ namespace FSGIS
             this.查看属性表.Image = ((System.Drawing.Image)(resources.GetObject("查看属性表.Image")));
             this.查看属性表.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.查看属性表.Name = "查看属性表";
-            this.查看属性表.Size = new System.Drawing.Size(29, 24);
+            this.查看属性表.Size = new System.Drawing.Size(29, 28);
             this.查看属性表.Text = "属性表";
             this.查看属性表.Click += new System.EventHandler(this.查看属性表_Click);
             // 
@@ -163,7 +163,7 @@ namespace FSGIS
             this.Identify.Image = ((System.Drawing.Image)(resources.GetObject("Identify.Image")));
             this.Identify.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.Identify.Name = "Identify";
-            this.Identify.Size = new System.Drawing.Size(29, 24);
+            this.Identify.Size = new System.Drawing.Size(29, 28);
             this.Identify.Text = "识别";
             this.Identify.Click += new System.EventHandler(this.Identify_Click);
             // 
@@ -173,14 +173,14 @@ namespace FSGIS
             this.图形编辑器.Image = ((System.Drawing.Image)(resources.GetObject("图形编辑器.Image")));
             this.图形编辑器.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.图形编辑器.Name = "图形编辑器";
-            this.图形编辑器.Size = new System.Drawing.Size(29, 24);
+            this.图形编辑器.Size = new System.Drawing.Size(29, 28);
             this.图形编辑器.Text = "编辑";
             this.图形编辑器.Click += new System.EventHandler(this.图形编辑器_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 31);
             // 
             // 创建要素
             // 
@@ -189,7 +189,7 @@ namespace FSGIS
             this.创建要素.Image = ((System.Drawing.Image)(resources.GetObject("创建要素.Image")));
             this.创建要素.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.创建要素.Name = "创建要素";
-            this.创建要素.Size = new System.Drawing.Size(29, 24);
+            this.创建要素.Size = new System.Drawing.Size(29, 28);
             this.创建要素.Text = "创建要素";
             this.创建要素.Click += new System.EventHandler(this.创建要素_Click);
             // 
@@ -200,7 +200,7 @@ namespace FSGIS
             this.编辑要素.Image = ((System.Drawing.Image)(resources.GetObject("编辑要素.Image")));
             this.编辑要素.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.编辑要素.Name = "编辑要素";
-            this.编辑要素.Size = new System.Drawing.Size(29, 24);
+            this.编辑要素.Size = new System.Drawing.Size(29, 28);
             this.编辑要素.Text = "编辑要素";
             this.编辑要素.CheckedChanged += new System.EventHandler(this.编辑要素_CheckedChanged);
             this.编辑要素.Click += new System.EventHandler(this.编辑要素_Click);
@@ -212,7 +212,7 @@ namespace FSGIS
             this.移动要素.Image = ((System.Drawing.Image)(resources.GetObject("移动要素.Image")));
             this.移动要素.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.移动要素.Name = "移动要素";
-            this.移动要素.Size = new System.Drawing.Size(29, 24);
+            this.移动要素.Size = new System.Drawing.Size(29, 28);
             this.移动要素.Text = "移动要素";
             this.移动要素.Click += new System.EventHandler(this.移动要素_Click);
             // 
@@ -223,7 +223,7 @@ namespace FSGIS
             this.checkedListBox1.Location = new System.Drawing.Point(0, 40);
             this.checkedListBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(184, 523);
+            this.checkedListBox1.Size = new System.Drawing.Size(184, 517);
             this.checkedListBox1.TabIndex = 4;
             this.checkedListBox1.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBox1_ItemCheck);
             this.checkedListBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.checkedListBox1_MouseDown);
@@ -402,7 +402,7 @@ namespace FSGIS
             this.toolStripSeparator4,
             this.退出ToolStripMenuItem});
             this.文件ToolStripMenuItem.Name = "文件ToolStripMenuItem";
-            this.文件ToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
+            this.文件ToolStripMenuItem.Size = new System.Drawing.Size(53, 26);
             this.文件ToolStripMenuItem.Text = "文件";
             // 
             // 读取工程文件ToolStripMenuItem
@@ -482,20 +482,20 @@ namespace FSGIS
             this.帮助ToolStripMenuItem1,
             this.关于ToolStripMenuItem});
             this.帮助ToolStripMenuItem.Name = "帮助ToolStripMenuItem";
-            this.帮助ToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
+            this.帮助ToolStripMenuItem.Size = new System.Drawing.Size(53, 26);
             this.帮助ToolStripMenuItem.Text = "帮助";
             // 
             // 帮助ToolStripMenuItem1
             // 
             this.帮助ToolStripMenuItem1.Name = "帮助ToolStripMenuItem1";
-            this.帮助ToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
+            this.帮助ToolStripMenuItem1.Size = new System.Drawing.Size(122, 26);
             this.帮助ToolStripMenuItem1.Text = "帮助";
             this.帮助ToolStripMenuItem1.Click += new System.EventHandler(this.帮助ToolStripMenuItem1_Click);
             // 
             // 关于ToolStripMenuItem
             // 
             this.关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
-            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(122, 26);
             this.关于ToolStripMenuItem.Text = "关于";
             this.关于ToolStripMenuItem.Click += new System.EventHandler(this.关于ToolStripMenuItem_Click);
             // 
@@ -508,7 +508,7 @@ namespace FSGIS
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuStrip.Size = new System.Drawing.Size(1039, 28);
+            this.menuStrip.Size = new System.Drawing.Size(1039, 30);
             this.menuStrip.TabIndex = 2;
             this.menuStrip.Text = "menuStrip1";
             // 
@@ -576,7 +576,7 @@ namespace FSGIS
             // 
             this.splitter1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.splitter1.Location = new System.Drawing.Point(0, 618);
-            this.splitter1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.splitter1.Margin = new System.Windows.Forms.Padding(4);
             this.splitter1.Name = "splitter1";
             this.splitter1.Size = new System.Drawing.Size(1039, 6);
             this.splitter1.TabIndex = 11;
@@ -584,10 +584,10 @@ namespace FSGIS
             // 
             // splitter2
             // 
-            this.splitter2.Location = new System.Drawing.Point(184, 55);
-            this.splitter2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.splitter2.Location = new System.Drawing.Point(184, 61);
+            this.splitter2.Margin = new System.Windows.Forms.Padding(4);
             this.splitter2.Name = "splitter2";
-            this.splitter2.Size = new System.Drawing.Size(4, 563);
+            this.splitter2.Size = new System.Drawing.Size(4, 557);
             this.splitter2.TabIndex = 12;
             this.splitter2.TabStop = false;
             // 
@@ -596,10 +596,10 @@ namespace FSGIS
             this.panel1.Controls.Add(this.checkedListBox1);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel1.Location = new System.Drawing.Point(0, 55);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Location = new System.Drawing.Point(0, 61);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(184, 563);
+            this.panel1.Size = new System.Drawing.Size(184, 557);
             this.panel1.TabIndex = 13;
             // 
             // panel2
@@ -610,7 +610,7 @@ namespace FSGIS
             this.panel2.Controls.Add(this.置底);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(184, 40);
             this.panel2.TabIndex = 5;
@@ -622,11 +622,11 @@ namespace FSGIS
             this.myMapControl.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.myMapControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.myMapControl.FlashColor = System.Drawing.Color.Green;
-            this.myMapControl.Location = new System.Drawing.Point(188, 55);
+            this.myMapControl.Location = new System.Drawing.Point(188, 61);
             this.myMapControl.Margin = new System.Windows.Forms.Padding(5, 8, 5, 8);
             this.myMapControl.Name = "myMapControl";
             this.myMapControl.SelectionColor = System.Drawing.Color.Cyan;
-            this.myMapControl.Size = new System.Drawing.Size(851, 563);
+            this.myMapControl.Size = new System.Drawing.Size(851, 557);
             this.myMapControl.TabIndex = 9;
             this.myMapControl.MapScaleChanged += new MyMapObjects.MyMapControl.MapScaleChangedHandle(this.myMapControl_MapScaleChanged);
             this.myMapControl.AfterTrackingLayerDraw += new MyMapObjects.MyMapControl.AfterTrackingLayerDrawHandle(this.myMapControl_AfterTrackingLayerDraw);

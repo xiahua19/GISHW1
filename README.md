@@ -1,17 +1,17 @@
-# 建立数据库连接√
+# 建立数据库连接 
     连接参数：
         Host, Port
         Password
         Database name
     接口：
-        DataBaseTools.GetConnectionToDB
+        DataBaseTools.GetConnectionToDB（两个版本）✅
 
 # 图层相关内容
-
     1. 修改图层数据格式：文件-->数据库
-       | Attributes | Geometry | Symbol |
-    2. 新建图层文件
-        NewLayerFile <-- MainForm.CreateNewLayerFile(layerPath, layerType) to (layerName, layerType)
+       | Attributes | Geometry | ✅
+       为减少修改量，建议把Symbol数据存储到工程文件中
+    2. 写入图层文件/新建图层文件
+        NewLayerFile <-- MainForm.CreateNewLayerFile(layerPath, layerType) to (layerName, layerType) ✅
         
         DataIOTools.WriteLayerToFile(layer, layerPath) to (layer, layerName)
     
@@ -32,8 +32,7 @@
         DataIOTools.LoadMapProj
 
     3. 保存工程文件
-
+        DataIOTools.WriteLayersToProj
+    
     4. 另存工程文件
         DataIOTools.WriteLayersToProj
-
-主要修改在DataIOTools下面的公共接口以及其调用的各个私有函数。
