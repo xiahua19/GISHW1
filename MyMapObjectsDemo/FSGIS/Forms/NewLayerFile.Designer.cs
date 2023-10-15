@@ -35,8 +35,7 @@ namespace FSGIS.Forms
             this.label1 = new System.Windows.Forms.Label();
             this.layerType = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.openFile = new System.Windows.Forms.Button();
-            this.layerPath = new System.Windows.Forms.TextBox();
+            this.layerName = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // NO
@@ -91,35 +90,23 @@ namespace FSGIS.Forms
             this.label2.Location = new System.Drawing.Point(37, 98);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(142, 15);
+            this.label2.Size = new System.Drawing.Size(112, 15);
             this.label2.TabIndex = 8;
-            this.label2.Text = "请选择图层保存路径";
+            this.label2.Text = "请设置图层名称";
             // 
-            // openFile
+            // layerName
             // 
-            this.openFile.Location = new System.Drawing.Point(368, 138);
-            this.openFile.Name = "openFile";
-            this.openFile.Size = new System.Drawing.Size(113, 32);
-            this.openFile.TabIndex = 9;
-            this.openFile.Text = "浏览文件...";
-            this.openFile.UseVisualStyleBackColor = true;
-            this.openFile.Click += new System.EventHandler(this.openFile_Click);
-            // 
-            // layerPath
-            // 
-            this.layerPath.Location = new System.Drawing.Point(40, 138);
-            this.layerPath.Name = "layerPath";
-            this.layerPath.ReadOnly = true;
-            this.layerPath.Size = new System.Drawing.Size(322, 25);
-            this.layerPath.TabIndex = 10;
+            this.layerName.Location = new System.Drawing.Point(40, 132);
+            this.layerName.Name = "layerName";
+            this.layerName.Size = new System.Drawing.Size(322, 25);
+            this.layerName.TabIndex = 9;
             // 
             // NewLayerFile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(502, 235);
-            this.Controls.Add(this.layerPath);
-            this.Controls.Add(this.openFile);
+            this.Controls.Add(this.layerName);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.NO);
             this.Controls.Add(this.YES);
@@ -142,7 +129,6 @@ namespace FSGIS.Forms
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox layerType;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button openFile;
-        private System.Windows.Forms.TextBox layerPath;
+        private System.Windows.Forms.TextBox layerName;
     }
 }

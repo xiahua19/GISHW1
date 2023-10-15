@@ -2249,24 +2249,20 @@ namespace FSGIS
         /// </summary>
         /// <param name="path"></param>
         /// <param name="type"></param>
-        private void CreateNewLayerFile(string path, MyMapObjects.moGeometryTypeConstant type)
+        private void CreateNewLayerFile(string layerName, MyMapObjects.moGeometryTypeConstant type)
         {
-            // 获取文件路径及名称
-            string[] pathParams = path.Split('\\');
-            string layName = pathParams[pathParams.Length - 1];
-            string[] nameParams = layName.Split('.');
-            layName = nameParams[0];
-
             // 新建属性
             MyMapObjects.moFields attributeFields = new MyMapObjects.moFields();//字段集合
             MyMapObjects.moField moField = new MyMapObjects.moField("名称", MyMapObjects.moValueTypeConstant.dText);
             attributeFields.Append(moField);
 
+            string path = "";
+
             // 新建lay对象
-            MyMapObjects.moMapLayer newLayer = new MyMapObjects.moMapLayer(layName, type, attributeFields, path);
+            MyMapObjects.moMapLayer newLayer = new MyMapObjects.moMapLayer(layerName, type, attributeFields, path);
 
             // 写入文件
-            DataIOTools.WriteLayerToFile(newLayer, path);
+            DataIOTools.WriteLayerToFile(newLayer, layerName);
 
             // 添加到Layers中
             myMapControl.Layers.Add(newLayer);

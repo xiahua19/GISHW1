@@ -160,6 +160,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SubSystems\DataBaseTools.cs" />
     <Compile Include="SubSystems\DataIOTools.cs" />
     <Compile Include="SubSystems\DataTypeTools.cs" />
     <EmbeddedResource Include="Forms\About.resx">
