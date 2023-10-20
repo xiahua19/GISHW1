@@ -13,7 +13,7 @@
     2. 写入图层文件/新建图层文件
         NewLayerFile <-- MainForm.CreateNewLayerFile(layerPath, layerType) to (layerName, layerType)：删除界面中的选择layer路径的下拉框，修改为填写layer名字的文本框 ✅
         DataIOTools.WriteLayerToFile(layer, layerPath) to (layer, layerName)：已完成要写入的layer数据整理，待创建表并写入数据
-    
+        - 
     3. 添加图层文件
         添加图层文件ToolStripMenuItem_Click：函数逻辑需要改为从数据库中查询可用表
         DataIOTools.LoadMapLayer(binaryReader, layerPath) to (npgsqlconnection, layerName)：根据DataIOTools.WriteLayerToFile中数据在表格中的存储逻辑，解析得到layer对应的数据

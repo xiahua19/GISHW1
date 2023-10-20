@@ -93,3 +93,8 @@ D:\GISHW1\MyMapObjectsDemo\FSGIS\bin\Release\System.Text.Json.xml
 D:\GISHW1\MyMapObjectsDemo\FSGIS\bin\Release\System.Threading.Channels.xml
 D:\GISHW1\MyMapObjectsDemo\FSGIS\bin\Release\System.Threading.Tasks.Extensions.xml
 D:\GISHW1\MyMapObjectsDemo\FSGIS\bin\Release\System.ValueTuple.xml
+D:\GISHW1\MyMapObjectsDemo\FSGIS\bin\Release\NetTopologySuite.dll
+D:\GISHW1\MyMapObjectsDemo\FSGIS\bin\Release\NetTopologySuite.IO.PostGis.dll
+D:\GISHW1\MyMapObjectsDemo\FSGIS\bin\Release\NetTopologySuite.xml
+D:\GISHW1\MyMapObjectsDemo\FSGIS\bin\Release\NetTopologySuite.IO.PostGis.xml
+D:\GISHW1\MyMapObjectsDemo\FSGIS\bin\Release\MyMapObjects.dll.config

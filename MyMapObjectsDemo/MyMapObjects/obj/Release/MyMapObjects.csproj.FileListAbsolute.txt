@@ -25,3 +25,17 @@ D:\GISHW1\MyMapObjectsDemo\MyMapObjects\obj\Release\MyMapObjects.csproj.Generate
 D:\GISHW1\MyMapObjectsDemo\MyMapObjects\obj\Release\MyMapObjects.csproj.CoreCompileInputs.cache
 D:\GISHW1\MyMapObjectsDemo\MyMapObjects\obj\Release\MyMapObjects.dll
 D:\GISHW1\MyMapObjectsDemo\MyMapObjects\obj\Release\MyMapObjects.pdb
+D:\GISHW1\MyMapObjectsDemo\MyMapObjects\bin\Release\MyMapObjects.dll.config
+D:\GISHW1\MyMapObjectsDemo\MyMapObjects\bin\Release\NetTopologySuite.dll
+D:\GISHW1\MyMapObjectsDemo\MyMapObjects\bin\Release\NetTopologySuite.IO.PostGis.dll
+D:\GISHW1\MyMapObjectsDemo\MyMapObjects\bin\Release\System.Buffers.dll
+D:\GISHW1\MyMapObjectsDemo\MyMapObjects\bin\Release\System.Memory.dll
+D:\GISHW1\MyMapObjectsDemo\MyMapObjects\bin\Release\System.Numerics.Vectors.dll
+D:\GISHW1\MyMapObjectsDemo\MyMapObjects\bin\Release\System.Runtime.CompilerServices.Unsafe.dll
+D:\GISHW1\MyMapObjectsDemo\MyMapObjects\bin\Release\NetTopologySuite.xml
+D:\GISHW1\MyMapObjectsDemo\MyMapObjects\bin\Release\NetTopologySuite.IO.PostGis.xml
+D:\GISHW1\MyMapObjectsDemo\MyMapObjects\bin\Release\System.Buffers.xml
+D:\GISHW1\MyMapObjectsDemo\MyMapObjects\bin\Release\System.Memory.xml
+D:\GISHW1\MyMapObjectsDemo\MyMapObjects\bin\Release\System.Numerics.Vectors.xml
+D:\GISHW1\MyMapObjectsDemo\MyMapObjects\bin\Release\System.Runtime.CompilerServices.Unsafe.xml
+D:\GISHW1\MyMapObjectsDemo\MyMapObjects\obj\Release\MyMapObjects.csproj.CopyComplete
