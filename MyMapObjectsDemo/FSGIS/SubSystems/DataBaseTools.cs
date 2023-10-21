@@ -12,6 +12,7 @@ using NetTopologySuite.IO;
 using System.Drawing;
 using NpgsqlTypes;
 using System.Xml.Linq;
+using MyMapObjects;
 
 namespace FSGIS.SubSystems
 {
@@ -111,7 +112,6 @@ namespace FSGIS.SubSystems
             }
 
             npgsqlConnection.Close();
-
             return new Tuple<List<string>, List<string>> (layerNames, layerTypes);
         }
 
@@ -201,21 +201,45 @@ namespace FSGIS.SubSystems
                     while (reader.Read())
                     {
                         // 读取几何数据放入几何对象之中
+                        MyMapObjects.moGeometry geometry;
+                        var geometryBytes = (byte[])reader["geom"];
+
                         if (geometryType == MyMapObjects.moGeometryTypeConstant.Point)
                         {
-
+                            NetTopologySuite.Geometries.Point geometryRead = (NetTopologySuite.Geometries.Point) (new WKBReader().Read(geometryBytes));
+                            var coordinate = geometryRead.Coordinate;
+                            geometry = new MyMapObjects.moPoint(coordinate.X, coordinate.Y);
                         }
                         else if (geometryType == MyMapObjects.moGeometryTypeConstant.MultiPolyline)
                         {
-
+                            NetTopologySuite.Geometries.MultiLineString geometryRead = (NetTopologySuite.Geometries.MultiLineString)(new WKBReader().Read(geometryBytes));
+                            MyMapObjects.moParts parts = new MyMapObjects.moParts();                        
+                            foreach (var lineString in geometryRead)
+                            {
+                                MyMapObjects.moPoints points = new MyMapObjects.moPoints();
+                                var coordinates = lineString.Coordinates;
+                                foreach (var point in coordinates)
+                                {
+                                    points.Add(new MyMapObjects.moPoint(point.X, point.Y));
+                                }
+                                parts.Add(points);
+                            }
                         }
                         else if (geometryType == MyMapObjects.moGeometryTypeConstant.MultiPolygon)
                         {
-
+                            NetTopologySuite.Geometries.MultiPolygon geometryRead = (NetTopologySuite.Geometries.MultiPolygon)(new WKBReader().Read(geometryBytes));
+                            MyMapObjects.moParts parts = new MyMapObjects.moParts();
+                            foreach (var polygon in geometryRead)
+                            {
+                                MyMapObjects.moPoints points = new MyMapObjects.moPoints();
+                                foreach (var point in polygon.Coordinates)
+                                {
+                                    points.Add(new MyMapObjects.moPoint(point.X, point.Y));
+                                }
+                                parts.Add(points);
+                            }
                         }
-
-                        MyMapObjects.moGeometry geometry = new MyMapObjects.moGeometry();
-                        
+                                                
                         // 读取属性信息放入属性对象之中
                         MyMapObjects.moAttributes attributes = new MyMapObjects.moAttributes();
                         for (int i = 2; i < reader.FieldCount; ++i)
@@ -519,15 +543,12 @@ namespace FSGIS.SubSystems
 
             for (int i = 0; i < layerCount; ++i)
             {
-                // 当前图层文件的路径
-                string layerPath = sr.ReadString();
+                // 当前图层文件的名称
+                string layerName = sr.ReadString();
 
-                // 根据当前文件的路径读取该文件
-                FileStream sFileStream = new FileStream(layerPath, FileMode.Open);
-                BinaryReader binaryReader = new BinaryReader(sFileStream);
-                MyMapObjects.moMapLayer sLayer = DataIOTools.LoadMapLayer(binaryReader, layerPath);
-                binaryReader.Dispose();
-                sFileStream.Dispose();
+                // 根据当前文件的名称读取该文件
+                NpgsqlConnection npgsqlConnection = DataBaseTools.GetConnectionToDB();
+                MyMapObjects.moMapLayer sLayer = DataBaseTools.LoadMapLayer(npgsqlConnection, layerName);
 
                 // 获取当前图层文件的样式类型
                 Int32 symbolType = sr.ReadInt32();
@@ -879,9 +900,9 @@ namespace FSGIS.SubSystems
             {
                 try
                 {
-                    // 写入图层文件路径
-                    string layerPath = layers.GetItem(i).Path;
-                    binaryWriter.Write(layerPath);
+                    // 写入图层文件名称
+                    string layerName = layers.GetItem(i).Name;
+                    binaryWriter.Write(layerName);
 
                     // 获取图层文件的渲染方式和几何类型
                     MyMapObjects.moRendererTypeConstant renderType = layers.GetItem(i).Renderer.RendererType;
