@@ -123,13 +123,13 @@ namespace FSGIS.SubSystems
         /// <returns></returns>
         internal static MyMapObjects.moMapLayer LoadMapLayer(NpgsqlConnection npgsqlConnection , string layerName)
         {
-            // GeometryType, Fields, Features
             npgsqlConnection.Open();
             
             MyMapObjects.moFields fields = new MyMapObjects.moFields();
             MyMapObjects.moGeometryTypeConstant geometryType = new MyMapObjects.moGeometryTypeConstant();
             MyMapObjects.moFeatures features = new MyMapObjects.moFeatures();
 
+            // 从PostGIS中的数据类型对应到本项目的数据类型
             Dictionary<string, MyMapObjects.moValueTypeConstant> valuePairs = new Dictionary<string, MyMapObjects.moValueTypeConstant>();
             valuePairs.Add("smallint", MyMapObjects.moValueTypeConstant.dInt16);
             valuePairs.Add("integer", MyMapObjects.moValueTypeConstant.dInt32);
@@ -138,7 +138,7 @@ namespace FSGIS.SubSystems
             valuePairs.Add("double precision", MyMapObjects.moValueTypeConstant.dDouble);
             valuePairs.Add("text", MyMapObjects.moValueTypeConstant.dText);
 
-
+            // 获取当前表中的字段名及其类型
             using (var cmd = new NpgsqlCommand())
             {
                 cmd.Connection = npgsqlConnection;
@@ -152,15 +152,20 @@ namespace FSGIS.SubSystems
                     {
                         string columnName = reader.GetString(0);
                         string dataType = reader.GetString(1);
+                        if (columnName == "goem" || columnName == "id")
+                        {
+                            continue;
+                        }
                         fields.Append(new MyMapObjects.moField(columnName, valuePairs[dataType]));
                     }
                 }
             }
 
+            // 获取当前表中存储的几何数据类型
             using (var cmd = new NpgsqlCommand())
             {
                 cmd.Connection = npgsqlConnection;
-                cmd.CommandText = @"SELECT GeometryType(geom) FROM " + layerName + ";";
+                cmd.CommandText = "SELECT GeometryType(geom) FROM " + layerName + ";";
 
                 using (var reader = cmd.ExecuteReader())
                 {
@@ -185,22 +190,53 @@ namespace FSGIS.SubSystems
                 }
             }
 
-            MyMapObjects.moAttributes sAttributes = LoadAttributes(fields, sr);
-            MyMapObjects.moFeature sFeature = new MyMapObjects.moFeature(geometryType, sGeometry, sAttributes);
+            // 获取当前表存储的所有要素（几何数据、属性信息）
+            using (var cmd = new NpgsqlCommand())
+            {
+                cmd.Connection = npgsqlConnection;
+                cmd.CommandText = "SELECT * FROM " + layerName + ";";
 
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        // 读取几何数据放入几何对象之中
+                        if (geometryType == MyMapObjects.moGeometryTypeConstant.Point)
+                        {
+
+                        }
+                        else if (geometryType == MyMapObjects.moGeometryTypeConstant.MultiPolyline)
+                        {
+
+                        }
+                        else if (geometryType == MyMapObjects.moGeometryTypeConstant.MultiPolygon)
+                        {
+
+                        }
+
+                        MyMapObjects.moGeometry geometry = new MyMapObjects.moGeometry();
+                        
+                        // 读取属性信息放入属性对象之中
+                        MyMapObjects.moAttributes attributes = new MyMapObjects.moAttributes();
+                        for (int i = 2; i < reader.FieldCount; ++i)
+                        {
+                            attributes.Append(reader.GetValue(i));
+                        } 
+                        
+                        // 根据读取得到的几何对象和属性对象，新建一个要素并放入要素集中
+                        MyMapObjects.moFeature feature = new MyMapObjects.moFeature(geometryType, geometry,attributes);
+                        features.Add(feature);
+                    }
+                }
+            }
+
+
+            // 根据从当前表读取的数据，新建一个maplayer对象并返回
             MyMapObjects.moMapLayer sMapLayer = new MyMapObjects.moMapLayer(layerName, geometryType, fields, "");
             sMapLayer.Features = features;
 
             npgsqlConnection.Close();
             return sMapLayer;
-
-            //string name = sr.ReadString();
-            //MyMapObjects.moGeometryTypeConstant sGeometryType = (MyMapObjects.moGeometryTypeConstant)sr.ReadInt32();
-            //MyMapObjects.moFields sFields = LoadFields(sr);
-            //MyMapObjects.moFeatures sFeatures = LoadFeatures(sGeometryType, sFields, sr);
-            //MyMapObjects.moMapLayer sMapLayer = new MyMapObjects.moMapLayer(name, sGeometryType, sFields, path);
-            //sMapLayer.Features = sFeatures;
-            //return sMapLayer;
         }
 
         /// <summary>
@@ -355,7 +391,8 @@ namespace FSGIS.SubSystems
             npgsqlConnection.Open();
 
             string createTableQuery = "";
-            
+
+            // 数据表存储的几何数据类型
             if (geometryType == MyMapObjects.moGeometryTypeConstant.Point)
             {
                 createTableQuery = "CREATE TABLE " + name + " ( id serial PRIMARY KEY, geom geometry(Point, 4326),";
@@ -369,6 +406,7 @@ namespace FSGIS.SubSystems
                 createTableQuery = "CREATE TABLE " + name + " ( id serial PRIMARY KEY, geom geometry(MultiPolygon, 4326),";
             }
 
+            // 本项目的数据类型对应到npgsql中的数据类型
             Dictionary<MyMapObjects.moValueTypeConstant, NpgsqlDbType> valuePairs = new Dictionary<MyMapObjects.moValueTypeConstant, NpgsqlDbType>();
             valuePairs.Add(MyMapObjects.moValueTypeConstant.dInt16, NpgsqlDbType.Smallint);
             valuePairs.Add(MyMapObjects.moValueTypeConstant.dInt32, NpgsqlDbType.Integer);
@@ -377,12 +415,24 @@ namespace FSGIS.SubSystems
             valuePairs.Add(MyMapObjects.moValueTypeConstant.dDouble, NpgsqlDbType.Double);
             valuePairs.Add(MyMapObjects.moValueTypeConstant.dText, NpgsqlDbType.Text);
 
+            // 本项目的数据类型对应到PostGIS中的数据类型
+            Dictionary<MyMapObjects.moValueTypeConstant, string> valuePairs2 = new Dictionary<MyMapObjects.moValueTypeConstant, string>();
+            valuePairs2.Add(MyMapObjects.moValueTypeConstant.dInt16, "smallint");
+            valuePairs2.Add(MyMapObjects.moValueTypeConstant.dInt32, "integer");
+            valuePairs2.Add(MyMapObjects.moValueTypeConstant.dInt64, "bigint");
+            valuePairs2.Add(MyMapObjects.moValueTypeConstant.dSingle, "real");
+            valuePairs2.Add(MyMapObjects.moValueTypeConstant.dDouble, "double precision");
+            valuePairs2.Add(MyMapObjects.moValueTypeConstant.dText, "text");
+
+
+            // 数据表存储的字段名及其类型
             for (int i = 0; i < fieldsNum; ++i)
             {
-                createTableQuery += attributeFields[i].Item1 + " " + valuePairs[attributeFields[i].Item2] + ",";
+                createTableQuery += attributeFields[i].Item1 + " " + valuePairs2[attributeFields[i].Item2] + ",";
             }
             createTableQuery += ");";
 
+            // 执行创建数据表的SQL语句
             using (NpgsqlCommand cmd = new NpgsqlCommand(createTableQuery, npgsqlConnection))
             {
                 cmd.ExecuteNonQuery();
@@ -391,6 +441,8 @@ namespace FSGIS.SubSystems
             /// --------------------------------<summary>--------------------------------
             /// 写入上述数据
             /// -------------------------------------------------------------------------
+            
+            // 需要写入的字段
             string writeDataQuery = "INSERT INTO " + name + " (geom, ";
             for (int i = 0; i < fieldsNum; ++i)
             {
@@ -403,6 +455,7 @@ namespace FSGIS.SubSystems
             }
             writeDataQuery += ");";
 
+            // 对每一个要素，执行一次SQL写入数据
             for (int i = 0; i < featuresNum; ++i)
             {
                 using (var cmd = new NpgsqlCommand())
