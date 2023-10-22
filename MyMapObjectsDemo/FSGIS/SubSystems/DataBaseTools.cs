@@ -1,18 +1,15 @@
-﻿using System;
+﻿using NetTopologySuite;
+using NetTopologySuite.Geometries;
+using NetTopologySuite.IO;
+using Npgsql;
+using NpgsqlTypes;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Npgsql;
-using NetTopologySuite;
-using NetTopologySuite.Geometries;
-using NetTopologySuite.IO;
-using System.Drawing;
-using NpgsqlTypes;
-using System.Xml.Linq;
-using MyMapObjects;
 
 namespace FSGIS.SubSystems
 {
@@ -36,8 +33,16 @@ namespace FSGIS.SubSystems
                                 ";Database="+database+
                                 ";Username="+username+
                                 ";Password="+password+";";
-            NpgsqlConnection npgsqlConnection = new NpgsqlConnection(connectionSQL);
-            return npgsqlConnection;
+            try
+            {
+                NpgsqlConnection npgsqlConnection = new NpgsqlConnection(connectionSQL);
+                return npgsqlConnection;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+            }
         }
 
         /// <summary>
@@ -57,8 +62,16 @@ namespace FSGIS.SubSystems
                     ";Database=" + database +
                     ";Username=" + username +
                     ";Password=" + password + ";";
-            NpgsqlConnection npgsqlConnection = new NpgsqlConnection(connectionSQL);
-            return npgsqlConnection;
+            try
+            {
+                NpgsqlConnection npgsqlConnection = new NpgsqlConnection(connectionSQL);
+                return npgsqlConnection;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+            }
         }
 
         /// <summary>
@@ -66,8 +79,9 @@ namespace FSGIS.SubSystems
         /// </summary>
         /// <param name="npgsqlConnection">数据库连接对象</param>
         /// <returns>layerNames列表和layerTypes列表组成的元组</returns>
-        internal static Tuple<List<string>, List<string>> GetLayerNamesTypes(NpgsqlConnection npgsqlConnection)
+        internal static Tuple<List<string>, List<string>> GetLayerNamesTypes()
         {
+            NpgsqlConnection npgsqlConnection = GetConnectionToDB();
             npgsqlConnection.Open();
 
             List<string> layerNames = new List<string>();
@@ -77,23 +91,25 @@ namespace FSGIS.SubSystems
             using (var cmd = new NpgsqlCommand())
             {
                 cmd.Connection = npgsqlConnection;
-                cmd.CommandText = @"SELECT table_name
-                                    FROM information_schema.columns
-                                    WHERE table_schema = 'public'
-                                    AND data_type = 'USER-DEFINED'
-                                    AND udt_name IN ('geometry', 'geography');";
+                cmd.CommandText = "SELECT table_name FROM information_schema.columns WHERE table_schema = 'public' AND data_type = 'USER-DEFINED' AND udt_name IN ('geometry', 'geography');";
 
                 using (var reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        layerNames.Append(reader.GetString(0));
+                        string layerName = reader.GetString(0);
+                        if (layerName == "raster_columns")
+                        {
+                            continue;
+                        }
+                        layerNames.Add(layerName);
                     }
                 }
             }
 
+
             // 获取每个数据表的几何数据类型
-            foreach(string layerName in layerNames)
+            foreach (string layerName in layerNames)
             {
                 using (var cmd = new NpgsqlCommand())
                 {
@@ -104,7 +120,8 @@ namespace FSGIS.SubSystems
                     {
                         while (reader.Read())
                         {
-                            layerTypes.Append(reader.GetString(0));
+                            string layerType = reader.GetString(0);
+                            layerTypes.Add(layerType);
                             break;
                         }
                     }
@@ -112,6 +129,7 @@ namespace FSGIS.SubSystems
             }
 
             npgsqlConnection.Close();
+            npgsqlConnection.Dispose();
             return new Tuple<List<string>, List<string>> (layerNames, layerTypes);
         }
 
@@ -121,8 +139,9 @@ namespace FSGIS.SubSystems
         /// <param name="npgsqlConnection">数据库连接对象</param>
         /// <param name="layerName">图层文件名称（对应表名）</param>
         /// <returns></returns>
-        internal static MyMapObjects.moMapLayer LoadMapLayer(NpgsqlConnection npgsqlConnection , string layerName)
+        internal static MyMapObjects.moMapLayer LoadMapLayer(string layerName)
         {
+            NpgsqlConnection npgsqlConnection = GetConnectionToDB();
             npgsqlConnection.Open();
             
             MyMapObjects.moFields fields = new MyMapObjects.moFields();
@@ -137,6 +156,7 @@ namespace FSGIS.SubSystems
             valuePairs.Add("real", MyMapObjects.moValueTypeConstant.dSingle);
             valuePairs.Add("double precision", MyMapObjects.moValueTypeConstant.dDouble);
             valuePairs.Add("text", MyMapObjects.moValueTypeConstant.dText);
+            valuePairs.Add("character varying", MyMapObjects.moValueTypeConstant.dText);
 
             // 获取当前表中的字段名及其类型
             using (var cmd = new NpgsqlCommand())
@@ -152,11 +172,14 @@ namespace FSGIS.SubSystems
                     {
                         string columnName = reader.GetString(0);
                         string dataType = reader.GetString(1);
-                        if (columnName == "goem" || columnName == "id")
+                        if (columnName == "geom" || columnName == "id")
                         {
                             continue;
                         }
-                        fields.Append(new MyMapObjects.moField(columnName, valuePairs[dataType]));
+                        else
+                        {
+                            fields.Append(new MyMapObjects.moField(columnName, valuePairs[dataType]));
+                        }
                     }
                 }
             }
@@ -201,7 +224,7 @@ namespace FSGIS.SubSystems
                     while (reader.Read())
                     {
                         // 读取几何数据放入几何对象之中
-                        MyMapObjects.moGeometry geometry;
+                        MyMapObjects.moGeometry geometry = null;
                         var geometryBytes = (byte[])reader["geom"];
 
                         if (geometryType == MyMapObjects.moGeometryTypeConstant.Point)
@@ -224,6 +247,7 @@ namespace FSGIS.SubSystems
                                 }
                                 parts.Add(points);
                             }
+                            geometry = new MyMapObjects.moMultiPolyline(parts);
                         }
                         else if (geometryType == MyMapObjects.moGeometryTypeConstant.MultiPolygon)
                         {
@@ -238,6 +262,7 @@ namespace FSGIS.SubSystems
                                 }
                                 parts.Add(points);
                             }
+                            geometry = new MyMapObjects.moMultiPolygon(parts);
                         }
                                                 
                         // 读取属性信息放入属性对象之中
@@ -260,6 +285,7 @@ namespace FSGIS.SubSystems
             sMapLayer.Features = features;
 
             npgsqlConnection.Close();
+            npgsqlConnection.Dispose();
             return sMapLayer;
         }
 
@@ -268,8 +294,9 @@ namespace FSGIS.SubSystems
         /// </summary>
         /// <param name="npgsqlConnection">数据库连接对象</param>
         /// <param name="layer">图层对象</param>
-        internal static void WriteLayerToFile(NpgsqlConnection npgsqlConnection, MyMapObjects.moMapLayer layer)
+        internal static void WriteLayerToFile(MyMapObjects.moMapLayer layer)
         {
+            NpgsqlConnection npgsqlConnection = GetConnectionToDB();
             /// --------------------------------<summary>--------------------------------
             /// 待写入的数据
             /// -------------------------------------------------------------------------
@@ -293,7 +320,7 @@ namespace FSGIS.SubSystems
             Int32 featuresNum = layer.Features.Count;
             // 所有要素的几何数据和属性数据
             List<byte[]> featuresGeometrys = new List<byte[]>();
-            List<Tuple<MyMapObjects.moValueTypeConstant, object>> featuresAttributes = new List<Tuple<MyMapObjects.moValueTypeConstant, object>>();
+            List<List<Tuple<MyMapObjects.moValueTypeConstant, object>>> featuresAttributes = new List<List<Tuple<MyMapObjects.moValueTypeConstant, object>>>();
             for (int i = 0; i < featuresNum; ++i)
             {
                 if (geometryType == MyMapObjects.moGeometryTypeConstant.Point)// Point
@@ -401,12 +428,14 @@ namespace FSGIS.SubSystems
 
                 // 该对象的属性
                 MyMapObjects.moAttributes attributes = layer.Features.GetItem(i).Attributes;
+                List<Tuple<MyMapObjects.moValueTypeConstant, object>> featuresAttribute = new List<Tuple<MyMapObjects.moValueTypeConstant, object>>();
                 for (int j = 0; j < fields.Count; ++j)
                 {
                     MyMapObjects.moField field = fields.GetItem(j);
                     MyMapObjects.moValueTypeConstant valueType = field.ValueType;
-                    featuresAttributes.Add(new Tuple<MyMapObjects.moValueTypeConstant, object>(valueType, attributes.GetItem(j)));
+                    featuresAttribute.Add(new Tuple<MyMapObjects.moValueTypeConstant, object>(valueType, attributes.GetItem(j)));
                 }
+                featuresAttributes.Add(featuresAttribute);
             }
 
             /// --------------------------------<summary>--------------------------------
@@ -454,11 +483,14 @@ namespace FSGIS.SubSystems
             {
                 createTableQuery += attributeFields[i].Item1 + " " + valuePairs2[attributeFields[i].Item2] + ",";
             }
+            createTableQuery = createTableQuery.Remove(createTableQuery.Length - 1);
             createTableQuery += ");";
 
             // 执行创建数据表的SQL语句
-            using (NpgsqlCommand cmd = new NpgsqlCommand(createTableQuery, npgsqlConnection))
+            using (NpgsqlCommand cmd = new NpgsqlCommand())
             {
+                cmd.Connection = npgsqlConnection;
+                cmd.CommandText = createTableQuery;
                 cmd.ExecuteNonQuery();
             }
 
@@ -470,13 +502,15 @@ namespace FSGIS.SubSystems
             string writeDataQuery = "INSERT INTO " + name + " (geom, ";
             for (int i = 0; i < fieldsNum; ++i)
             {
-                writeDataQuery += attributeFields[i].Item1 + ", ";
+                writeDataQuery += attributeFields[i].Item1 + ",";
             }
+            writeDataQuery = writeDataQuery.Remove(writeDataQuery.Length - 1);
             writeDataQuery += ") VALUES (@geom, ";
             for (int i = 0; i < fieldsNum; ++i)
             {
-                writeDataQuery += "@" + attributeFields[i].Item1 + ", ";
+                writeDataQuery += "@" + attributeFields[i].Item1 + ",";
             }
+            writeDataQuery = writeDataQuery.Remove(writeDataQuery.Length - 1);
             writeDataQuery += ");";
 
             // 对每一个要素，执行一次SQL写入数据
@@ -486,48 +520,19 @@ namespace FSGIS.SubSystems
                 {
                     cmd.Connection = npgsqlConnection;
                     cmd.CommandText = writeDataQuery;
-                    cmd.Parameters.AddWithValue("geom", NpgsqlDbType.Geometry, featuresGeometrys[i]);
+                    cmd.Parameters.AddWithValue("geom", featuresGeometrys[i]);
                     for (int j = 0; j < fieldsNum; ++j)
                     {
                         MyMapObjects.moValueTypeConstant valueType = attributeFields[j].Item2;
                         string valueName = attributeFields[j].Item1;
-                        object value = featuresAttributes[j].Item2;
-
-                        if (valueType == MyMapObjects.moValueTypeConstant.dInt16)
-                        {
-                            Int16 sValue = (Int16)value;
-                            cmd.Parameters.AddWithValue(valueName, valuePairs[valueType], sValue);
-                        }
-                        else if (valueType == MyMapObjects.moValueTypeConstant.dInt32)
-                        {
-                            Int32 sValue = (Int32)value;
-                            cmd.Parameters.AddWithValue(valueName, valuePairs[valueType], sValue);
-                        }
-                        else if (valueType == MyMapObjects.moValueTypeConstant.dInt64)
-                        {
-                            Int64 sValue = (Int64)value;
-                            cmd.Parameters.AddWithValue(valueName, valuePairs[valueType], sValue);
-                        }
-                        else if (valueType == MyMapObjects.moValueTypeConstant.dSingle)
-                        {
-                            float sValue = (float)value;
-                            cmd.Parameters.AddWithValue(valueName, valuePairs[valueType], sValue);
-                        }
-                        else if (valueType == MyMapObjects.moValueTypeConstant.dDouble)
-                        {
-                            double sValue = (Double)value;
-                            cmd.Parameters.AddWithValue(valueName, valuePairs[valueType], sValue);
-                        }
-                        else if (valueType == MyMapObjects.moValueTypeConstant.dText)
-                        {
-                            string sValue = value.ToString();
-                            cmd.Parameters.AddWithValue(valueName, valuePairs[valueType], sValue);
-                        }
+                        object value = featuresAttributes[i][j].Item2;
+                        cmd.Parameters.AddWithValue(valueName, valuePairs[valueType], value);
                     }
                     cmd.ExecuteNonQuery();
                 }
             }
             npgsqlConnection.Close();
+            npgsqlConnection.Dispose();
         }
 
 
@@ -548,7 +553,7 @@ namespace FSGIS.SubSystems
 
                 // 根据当前文件的名称读取该文件
                 NpgsqlConnection npgsqlConnection = DataBaseTools.GetConnectionToDB();
-                MyMapObjects.moMapLayer sLayer = DataBaseTools.LoadMapLayer(npgsqlConnection, layerName);
+                MyMapObjects.moMapLayer sLayer = DataBaseTools.LoadMapLayer(layerName);
 
                 // 获取当前图层文件的样式类型
                 Int32 symbolType = sr.ReadInt32();

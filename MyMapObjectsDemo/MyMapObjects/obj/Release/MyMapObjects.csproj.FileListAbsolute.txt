@@ -39,3 +39,17 @@ D:\GISHW1\MyMapObjectsDemo\MyMapObjects\bin\Release\System.Memory.xml
 D:\GISHW1\MyMapObjectsDemo\MyMapObjects\bin\Release\System.Numerics.Vectors.xml
 D:\GISHW1\MyMapObjectsDemo\MyMapObjects\bin\Release\System.Runtime.CompilerServices.Unsafe.xml
 D:\GISHW1\MyMapObjectsDemo\MyMapObjects\obj\Release\MyMapObjects.csproj.CopyComplete
+D:\GISHW1\MyMapObjectsDemo\MyMapObjects\bin\Release\Microsoft.Bcl.AsyncInterfaces.dll
+D:\GISHW1\MyMapObjectsDemo\MyMapObjects\bin\Release\Npgsql.dll
+D:\GISHW1\MyMapObjectsDemo\MyMapObjects\bin\Release\Npgsql.RawPostgis.dll
+D:\GISHW1\MyMapObjectsDemo\MyMapObjects\bin\Release\System.Text.Encodings.Web.dll
+D:\GISHW1\MyMapObjectsDemo\MyMapObjects\bin\Release\System.Text.Json.dll
+D:\GISHW1\MyMapObjectsDemo\MyMapObjects\bin\Release\System.Threading.Tasks.Extensions.dll
+D:\GISHW1\MyMapObjectsDemo\MyMapObjects\bin\Release\System.ValueTuple.dll
+D:\GISHW1\MyMapObjectsDemo\MyMapObjects\bin\Release\Microsoft.Bcl.AsyncInterfaces.xml
+D:\GISHW1\MyMapObjectsDemo\MyMapObjects\bin\Release\Npgsql.xml
+D:\GISHW1\MyMapObjectsDemo\MyMapObjects\bin\Release\Npgsql.RawPostgis.xml
+D:\GISHW1\MyMapObjectsDemo\MyMapObjects\bin\Release\System.Text.Encodings.Web.xml
+D:\GISHW1\MyMapObjectsDemo\MyMapObjects\bin\Release\System.Text.Json.xml
+D:\GISHW1\MyMapObjectsDemo\MyMapObjects\bin\Release\System.Threading.Tasks.Extensions.xml
+D:\GISHW1\MyMapObjectsDemo\MyMapObjects\bin\Release\System.ValueTuple.xml

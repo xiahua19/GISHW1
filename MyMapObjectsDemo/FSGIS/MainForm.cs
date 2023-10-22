@@ -112,7 +112,7 @@ namespace FSGIS
         #region 事件处理函数
 
         #region 加载界面
-           private void MainForm_Load(object sender,EventArgs e)
+        private void MainForm_Load(object sender,EventArgs e)
         {
             InitializeSketchingShape();
             InitializeSymbols();

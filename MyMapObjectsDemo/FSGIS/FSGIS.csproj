@@ -58,6 +58,9 @@
     <Reference Include="Npgsql, Version=7.0.6.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
       <HintPath>..\packages\Npgsql.7.0.6\lib\netstandard2.0\Npgsql.dll</HintPath>
     </Reference>
+    <Reference Include="Npgsql.RawPostgis, Version=4.1.12.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Npgsql.RawPostgis.4.1.12\lib\net461\Npgsql.RawPostgis.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
@@ -169,6 +172,7 @@
     <Compile Include="SubSystems\DataBaseTools.cs" />
     <Compile Include="SubSystems\DataIOTools.cs" />
     <Compile Include="SubSystems\DataTypeTools.cs" />
+    <Compile Include="SubSystems\UnitTest.cs" />
     <EmbeddedResource Include="Forms\About.resx">
       <DependentUpon>About.cs</DependentUpon>
     </EmbeddedResource>
