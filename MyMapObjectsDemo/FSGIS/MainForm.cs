@@ -417,6 +417,7 @@ namespace FSGIS
         {
             for (int i = 0; i < myMapControl.Layers.Count; ++i)
             {
+                DataBaseTools.WriteLayerToFile(myMapControl.Layers.GetItem(i));
                 DataIOTools.WriteLayerToFile(myMapControl.Layers.GetItem(i), myMapControl.Layers.GetItem(i).Path);
             }
         }

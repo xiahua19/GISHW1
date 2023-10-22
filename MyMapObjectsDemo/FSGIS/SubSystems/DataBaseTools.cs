@@ -4,6 +4,7 @@ using NetTopologySuite.IO;
 using Npgsql;
 using NpgsqlTypes;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -347,17 +348,16 @@ namespace FSGIS.SubSystems
                     // 获取并写入MultiPolyline对象中的折线的数量
                     Int32 polylinesNum = momultiPolyline.Parts.Count;
 
+                    // 获取当前折线对象
+                    MyMapObjects.moParts moparts = momultiPolyline.Parts;
+
                     // 创建MultiLineString对象
                     var factory = NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326);
-                    var multipolyline = factory.CreateMultiLineString();
-                    var converter = new PostGisWriter();
 
+                    LineString[] lineStrings = new LineString[polylinesNum];
                     // 遍历所有折线
                     for (int j = 0; j < polylinesNum; ++j)
                     {
-                        // 获取当前折线对象
-                        MyMapObjects.moParts moparts = momultiPolyline.Parts;
-
                         // 获取并写入当前折线中的点数目，每个parts只有一个moPoints
                         MyMapObjects.moPoints mopoints = moparts.GetItem(j);
 
@@ -376,8 +376,11 @@ namespace FSGIS.SubSystems
                         }
 
                         // 创建LineString对象并添加到MultiLineString对象中
-                        multipolyline.Append(new LineString(coordinates));
+                        lineStrings.Append(new LineString(coordinates));
                     }
+
+                    var multipolyline = factory.CreateMultiLineString(lineStrings);
+                    var converter = new PostGisWriter();
                     featuresGeometrys.Add(converter.Write(multipolyline));
                 }
                 else if (geometryType == MyMapObjects.moGeometryTypeConstant.MultiPolygon)// MultiPolygon
@@ -388,16 +391,17 @@ namespace FSGIS.SubSystems
                     // 获取并写入momultiPolygon对象中的折线的数量
                     Int32 polylinesNum = momultiPolygon.Parts.Count;
 
+                    // 获取当前折线对象
+                    MyMapObjects.moParts moparts = momultiPolygon.Parts;
+
                     // 创建MultiLinegon对象
-                    var factory = NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326);
-                    var multiPolygon = factory.CreateMultiPolygon();
-                    var converter = new PostGisWriter();
+                    GeometryFactory factory = NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326);
+
+                    Polygon[] polygons = new Polygon[polylinesNum];
 
                     // 遍历所有折线
                     for (int j = 0; j < polylinesNum; ++j)
                     {
-                        // 获取当前折线对象
-                        MyMapObjects.moParts moparts = momultiPolygon.Parts;
 
                         // 获取并写入当前折线中的点数目，每个parts只有一个moPoints
                         MyMapObjects.moPoints mopoints = moparts.GetItem(j);
@@ -414,17 +418,21 @@ namespace FSGIS.SubSystems
                             Double mopointX = mopoints.GetItem(k).X;
                             Double mopointY = mopoints.GetItem(k).Y;
                             coordinates[k] = new Coordinate(mopointX, mopointY);
-                        }
-
+                        }                      
                         // 创建LinearRing对象并添加到MultiPolygon对象中
-                        multiPolygon.Append(new LinearRing(coordinates));
+                        polygons.Append(new Polygon(new LinearRing(coordinates)));
                     }
+
+                    var multiPolygon = factory.CreateMultiPolygon(polygons);
+                    var converter = new PostGisWriter();
                     featuresGeometrys.Add(converter.Write(multiPolygon));
                 }
                 else
                 {
                     MessageBox.Show("UnSupported Geometry Type!");
                 }
+
+                
 
                 // 该对象的属性
                 MyMapObjects.moAttributes attributes = layer.Features.GetItem(i).Attributes;
@@ -520,7 +528,7 @@ namespace FSGIS.SubSystems
                 {
                     cmd.Connection = npgsqlConnection;
                     cmd.CommandText = writeDataQuery;
-                    cmd.Parameters.AddWithValue("geom", featuresGeometrys[i]);
+                    cmd.Parameters.AddWithValue("geom", NpgsqlDbType.Bytea, featuresGeometrys[i]);
                     for (int j = 0; j < fieldsNum; ++j)
                     {
                         MyMapObjects.moValueTypeConstant valueType = attributeFields[j].Item2;
