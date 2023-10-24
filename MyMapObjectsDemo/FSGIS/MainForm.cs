@@ -2352,7 +2352,7 @@ namespace FSGIS
 
             try
             {
-                MyMapObjects.moMapLayer sLayer = UnitTest.TestLoadLayer("省会城市");
+                MyMapObjects.moMapLayer sLayer = UnitTest.TestLoadLayer("省级行政区");
                 myMapControl.Layers.Add(sLayer);
                 if (myMapControl.Layers.Count == 1)
                 {
@@ -2364,7 +2364,7 @@ namespace FSGIS
                 }
 
                 //修改checklistbox
-                AddLayerInCheckList(System.IO.Path.GetFileNameWithoutExtension("省会城市"));
+                AddLayerInCheckList(System.IO.Path.GetFileNameWithoutExtension("省级行政区"));
             }
             catch (Exception error)
             {
