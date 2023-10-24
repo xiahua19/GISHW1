@@ -48,11 +48,12 @@ internal static Tuple<List<string>, List<string>> GetLayerNamesTypes()
 ```
 
 ```C#
+// load point maplayer pass
 internal static MyMapObjects.moMapLayer LoadMapLayer(string layerName)
 ```
 
 ```C#
-// partly pass, need to think how to write geom
+// write point maplayer pass
 internal static void WriteLayerToFile(MyMapObjects.moMapLayer layer)
 ```
 

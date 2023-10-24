@@ -62,6 +62,23 @@ namespace MyMapObjects
             moPoint sPoint = new moPoint(_X, _Y);
             return sPoint;
         }
+
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            moPoint other = (moPoint)obj;
+            return (Math.Abs(this.X - other.X) < 1e-5) && (Math.Abs(this.Y - other.Y) < 1e-5);
+        }
+
+        public override int GetHashCode()
+        {
+            return (X, Y).GetHashCode();
+        }
         #endregion
     }
 }

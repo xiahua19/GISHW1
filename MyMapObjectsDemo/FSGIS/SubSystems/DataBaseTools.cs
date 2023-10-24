@@ -33,7 +33,8 @@ namespace FSGIS.SubSystems
                                 ";Port="+port+
                                 ";Database="+database+
                                 ";Username="+username+
-                                ";Password="+password+";";
+                                ";Password="+password+
+                                ";";
             try
             {
                 NpgsqlConnection npgsqlConnection = new NpgsqlConnection(connectionSQL);
@@ -165,7 +166,8 @@ namespace FSGIS.SubSystems
                 cmd.Connection = npgsqlConnection;
                 cmd.CommandText = @"SELECT column_name, data_type 
                                     FROM information_schema.columns 
-                                    WHERE table_name = '"+ layerName +"'";
+                                    WHERE table_name = '"+ layerName +"'" +
+                                    "ORDER BY ordinal_position;";
 
                 using (var reader = cmd.ExecuteReader())
                 {
@@ -214,6 +216,8 @@ namespace FSGIS.SubSystems
                 }
             }
 
+
+
             // 获取当前表存储的所有要素（几何数据、属性信息）
             using (var cmd = new NpgsqlCommand())
             {
@@ -226,17 +230,16 @@ namespace FSGIS.SubSystems
                     {
                         // 读取几何数据放入几何对象之中
                         MyMapObjects.moGeometry geometry = null;
-                        var geometryBytes = (byte[])reader["geom"];
-
+                        var geometryBytes = reader.GetFieldValue<byte[]>(1);
                         if (geometryType == MyMapObjects.moGeometryTypeConstant.Point)
                         {
-                            NetTopologySuite.Geometries.Point geometryRead = (NetTopologySuite.Geometries.Point) (new WKBReader().Read(geometryBytes));
+                            NetTopologySuite.Geometries.Point geometryRead = (NetTopologySuite.Geometries.Point) (new PostGisReader().Read(geometryBytes));
                             var coordinate = geometryRead.Coordinate;
                             geometry = new MyMapObjects.moPoint(coordinate.X, coordinate.Y);
                         }
                         else if (geometryType == MyMapObjects.moGeometryTypeConstant.MultiPolyline)
                         {
-                            NetTopologySuite.Geometries.MultiLineString geometryRead = (NetTopologySuite.Geometries.MultiLineString)(new WKBReader().Read(geometryBytes));
+                            NetTopologySuite.Geometries.MultiLineString geometryRead = (NetTopologySuite.Geometries.MultiLineString)(new PostGisReader().Read(geometryBytes));
                             MyMapObjects.moParts parts = new MyMapObjects.moParts();                        
                             foreach (var lineString in geometryRead)
                             {
@@ -252,7 +255,7 @@ namespace FSGIS.SubSystems
                         }
                         else if (geometryType == MyMapObjects.moGeometryTypeConstant.MultiPolygon)
                         {
-                            NetTopologySuite.Geometries.MultiPolygon geometryRead = (NetTopologySuite.Geometries.MultiPolygon)(new WKBReader().Read(geometryBytes));
+                            NetTopologySuite.Geometries.MultiPolygon geometryRead = (NetTopologySuite.Geometries.MultiPolygon)(new PostGisReader().Read(geometryBytes));
                             MyMapObjects.moParts parts = new MyMapObjects.moParts();
                             foreach (var polygon in geometryRead)
                             {
@@ -322,6 +325,9 @@ namespace FSGIS.SubSystems
             // 所有要素的几何数据和属性数据
             List<byte[]> featuresGeometrys = new List<byte[]>();
             List<List<Tuple<MyMapObjects.moValueTypeConstant, object>>> featuresAttributes = new List<List<Tuple<MyMapObjects.moValueTypeConstant, object>>>();
+            
+            var factory = NtsGeometryServices.Instance.CreateGeometryFactory( );
+            var converter = new PostGisWriter();
             for (int i = 0; i < featuresNum; ++i)
             {
                 if (geometryType == MyMapObjects.moGeometryTypeConstant.Point)// Point
@@ -334,11 +340,8 @@ namespace FSGIS.SubSystems
                     Double mopointY = mopoint.Y;
 
                     // 转为PostGIS中的geometry对象
-                    var factory = NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326);
                     var point = factory.CreatePoint(new Coordinate(mopointX, mopointY));
-                    var converter = new PostGisWriter();
                     featuresGeometrys.Add(converter.Write(point));
-
                 }
                 else if (geometryType == MyMapObjects.moGeometryTypeConstant.MultiPolyline)// MultiPolyline
                 {
@@ -351,16 +354,13 @@ namespace FSGIS.SubSystems
                     // 获取当前折线对象
                     MyMapObjects.moParts moparts = momultiPolyline.Parts;
 
-                    // 创建MultiLineString对象
-                    var factory = NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326);
-
-                    LineString[] lineStrings = new LineString[polylinesNum];
+                    LineString[] lineStrings = new LineString[] { };
                     // 遍历所有折线
                     for (int j = 0; j < polylinesNum; ++j)
                     {
                         // 获取并写入当前折线中的点数目，每个parts只有一个moPoints
                         MyMapObjects.moPoints mopoints = moparts.GetItem(j);
-
+                                                
                         // 获取当前折线中的点数目
                         Int32 mopointsNum = mopoints.Count;
 
@@ -378,9 +378,8 @@ namespace FSGIS.SubSystems
                         // 创建LineString对象并添加到MultiLineString对象中
                         lineStrings.Append(new LineString(coordinates));
                     }
-
-                    var multipolyline = factory.CreateMultiLineString(lineStrings);
-                    var converter = new PostGisWriter();
+                    // 创建MultiLineString对象并转换为WKB格式
+                    var multipolyline = new MultiLineString(lineStrings);
                     featuresGeometrys.Add(converter.Write(multipolyline));
                 }
                 else if (geometryType == MyMapObjects.moGeometryTypeConstant.MultiPolygon)// MultiPolygon
@@ -394,17 +393,14 @@ namespace FSGIS.SubSystems
                     // 获取当前折线对象
                     MyMapObjects.moParts moparts = momultiPolygon.Parts;
 
-                    // 创建MultiLinegon对象
-                    GeometryFactory factory = NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326);
-
-                    Polygon[] polygons = new Polygon[polylinesNum];
-
+                    Polygon[] polygons = new Polygon[] { };
                     // 遍历所有折线
                     for (int j = 0; j < polylinesNum; ++j)
                     {
 
                         // 获取并写入当前折线中的点数目，每个parts只有一个moPoints
                         MyMapObjects.moPoints mopoints = moparts.GetItem(j);
+                        mopoints.Distant();
 
                         // 获取当前折线中的点数目
                         Int32 mopointsNum = mopoints.Count;
@@ -418,13 +414,16 @@ namespace FSGIS.SubSystems
                             Double mopointX = mopoints.GetItem(k).X;
                             Double mopointY = mopoints.GetItem(k).Y;
                             coordinates[k] = new Coordinate(mopointX, mopointY);
-                        }                      
+                        }
+
                         // 创建LinearRing对象并添加到MultiPolygon对象中
-                        polygons.Append(new Polygon(new LinearRing(coordinates)));
+                        var linearRing = new LinearRing(coordinates);
+                        var polygon = new Polygon(linearRing);
+                        polygons.Append(polygon);
                     }
 
+                    // 创建MultiLingon对象并转换为WKB格式
                     var multiPolygon = factory.CreateMultiPolygon(polygons);
-                    var converter = new PostGisWriter();
                     featuresGeometrys.Add(converter.Write(multiPolygon));
                 }
                 else
@@ -456,15 +455,15 @@ namespace FSGIS.SubSystems
             // 数据表存储的几何数据类型
             if (geometryType == MyMapObjects.moGeometryTypeConstant.Point)
             {
-                createTableQuery = "CREATE TABLE " + name + " ( id serial PRIMARY KEY, geom geometry(Point, 4326),";
+                createTableQuery = "CREATE TABLE " + name + " ( id serial PRIMARY KEY, geom geometry(Point ),";
             }
             else if (geometryType == MyMapObjects.moGeometryTypeConstant.MultiPolyline)
             {
-                createTableQuery = "CREATE TABLE " + name + " ( id serial PRIMARY KEY, geom geometry(MultiLineString, 4326),";
+                createTableQuery = "CREATE TABLE " + name + " ( id serial PRIMARY KEY, geom geometry(MultiLineString ),";
             }
             else if (geometryType == MyMapObjects.moGeometryTypeConstant.MultiPolygon)
             {
-                createTableQuery = "CREATE TABLE " + name + " ( id serial PRIMARY KEY, geom geometry(MultiPolygon, 4326),";
+                createTableQuery = "CREATE TABLE " + name + " ( id serial PRIMARY KEY, geom geometry(MultiPolygon ),";
             }
 
             // 本项目的数据类型对应到npgsql中的数据类型

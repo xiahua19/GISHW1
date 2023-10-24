@@ -182,6 +182,11 @@ namespace MyMapObjects
             sPoints._MaxY = _MaxY;
             return sPoints;
         }
+
+        public void Distant()
+        {
+            _Points = _Points.Distinct().ToList();
+        }
         #endregion
 
         #region 私有函数

@@ -35,7 +35,7 @@ namespace FSGIS.SubSystems
             MessageBox.Show(info);
         }
 
-        // partly pass, need to think how to write geom.
+        // partly pass, need to think how to write geom in multilinestring, multipolygon.
         internal static void TestWriteLayerToFile(MyMapObjects.moMapLayer mapLayer) 
         {
             try
@@ -48,5 +48,18 @@ namespace FSGIS.SubSystems
             }
         }
 
+
+        internal static MyMapObjects.moMapLayer TestLoadLayer(string layerName)
+        {
+            try
+            {
+               return DataBaseTools.LoadMapLayer(layerName);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+            }
+        }
     }
 }
