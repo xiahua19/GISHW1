@@ -285,7 +285,7 @@ namespace FSGIS.SubSystems
 
 
             // 根据从当前表读取的数据，新建一个maplayer对象并返回
-            MyMapObjects.moMapLayer sMapLayer = new MyMapObjects.moMapLayer(layerName, geometryType, fields, "");
+            MyMapObjects.moMapLayer sMapLayer = new MyMapObjects.moMapLayer(layerName, geometryType, fields, layerName);
             sMapLayer.Features = features;
 
             npgsqlConnection.Close();
@@ -360,9 +360,11 @@ namespace FSGIS.SubSystems
                     {
                         // 获取并写入当前折线中的点数目，每个parts只有一个moPoints
                         MyMapObjects.moPoints mopoints = moparts.GetItem(j);
+                        mopoints.Distant();
                                                 
                         // 获取当前折线中的点数目
                         Int32 mopointsNum = mopoints.Count;
+                        //MessageBox.Show(mopointsNum.ToString());
 
                         // 创建Coordinate列表
                         Coordinate[] coordinates = new Coordinate[mopointsNum]; 
@@ -372,6 +374,7 @@ namespace FSGIS.SubSystems
                         {
                             Double mopointX = mopoints.GetItem(k).X;
                             Double mopointY = mopoints.GetItem(k).Y;
+                            //MessageBox.Show(mopointX.ToString() + " " + mopointY.ToString());
                             coordinates[k] = new Coordinate(mopointX, mopointY);
                         }
 
@@ -379,7 +382,7 @@ namespace FSGIS.SubSystems
                         lineStrings.Append(new LineString(coordinates));
                     }
                     // 创建MultiLineString对象并转换为WKB格式
-                    var multipolyline = new MultiLineString(lineStrings);
+                    var multipolyline = factory.CreateMultiLineString(lineStrings);
                     featuresGeometrys.Add(converter.Write(multipolyline));
                 }
                 else if (geometryType == MyMapObjects.moGeometryTypeConstant.MultiPolygon)// MultiPolygon
@@ -406,8 +409,10 @@ namespace FSGIS.SubSystems
                         Int32 mopointsNum = mopoints.Count;
 
                         // 创建Coordinate列表
-                        Coordinate[] coordinates = new Coordinate[mopointsNum];
+                        Coordinate[] coordinates = new Coordinate[mopointsNum + 1];
 
+                        Double startX = mopoints.GetItem(0).X;
+                        Double startY = mopoints.GetItem(0).Y;
                         // 遍历所有点读取并写入坐标
                         for (int k = 0; k < mopointsNum; ++k)
                         {
@@ -415,6 +420,7 @@ namespace FSGIS.SubSystems
                             Double mopointY = mopoints.GetItem(k).Y;
                             coordinates[k] = new Coordinate(mopointX, mopointY);
                         }
+                        coordinates[mopointsNum] = new Coordinate(startX, startY);
 
                         // 创建LinearRing对象并添加到MultiPolygon对象中
                         var linearRing = new LinearRing(coordinates);

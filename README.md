@@ -58,9 +58,11 @@ internal static void WriteLayerToFile(MyMapObjects.moMapLayer layer)
 ```
 
 ```C#
+// pass
 internal static MyMapObjects.moLayers LoadMapProj(BinaryReader sr, string path)
 ```
 
 ```C#
+// pass
 internal static void WriteLayersToProj(MyMapObjects.moLayers layers, string projName)
 ```
