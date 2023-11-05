@@ -87,7 +87,6 @@ namespace FSGIS
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.myMapControl = new MyMapObjects.MyMapControl();
-            this.从数据库添加ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip.SuspendLayout();
             this.contextMenuStrip.SuspendLayout();
             this.MapContextMenu.SuspendLayout();
@@ -401,8 +400,7 @@ namespace FSGIS
             this.toolStripSeparator3,
             this.打印地图ToolStripMenuItem,
             this.toolStripSeparator4,
-            this.退出ToolStripMenuItem,
-            this.从数据库添加ToolStripMenuItem});
+            this.退出ToolStripMenuItem});
             this.文件ToolStripMenuItem.Name = "文件ToolStripMenuItem";
             this.文件ToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
             this.文件ToolStripMenuItem.Text = "文件";
@@ -639,13 +637,6 @@ namespace FSGIS
             this.myMapControl.MouseMove += new System.Windows.Forms.MouseEventHandler(this.myMapControl_MouseMove);
             this.myMapControl.MouseUp += new System.Windows.Forms.MouseEventHandler(this.myMapControl_MouseUp);
             // 
-            // 从数据库添加ToolStripMenuItem
-            // 
-            this.从数据库添加ToolStripMenuItem.Name = "从数据库添加ToolStripMenuItem";
-            this.从数据库添加ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.从数据库添加ToolStripMenuItem.Text = "从数据库添加";
-            this.从数据库添加ToolStripMenuItem.Click += new System.EventHandler(this.从数据库添加ToolStripMenuItem_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -736,7 +727,6 @@ namespace FSGIS
         private System.Windows.Forms.ToolStripButton Identify;
         private System.Windows.Forms.ToolStripMenuItem 删除结点ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 添加结点ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 从数据库添加ToolStripMenuItem;
     }
 }
 

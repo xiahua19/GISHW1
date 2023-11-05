@@ -368,25 +368,16 @@ namespace FSGIS
         /// </summary>
         private void 添加图层文件ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog sFileDialog = new OpenFileDialog();
-            string sFileName = "";
-            if (sFileDialog.ShowDialog(this) == DialogResult.OK)
+            FetchLayerMetaData fetchLayerMeta = new FetchLayerMetaData();
+            string selectLayer = "";
+            if (fetchLayerMeta.ShowDialog() == DialogResult.OK)
             {
-                sFileName = sFileDialog.FileName;
-                sFileDialog.Dispose();
-            }
-            else
-            {
-                sFileDialog.Dispose();
-                return;
+                selectLayer = fetchLayerMeta.SelectLayer;
             }
 
             try
             {
-                FileStream sFileStream = new FileStream(sFileName, FileMode.Open);
-                BinaryReader sr = new BinaryReader(sFileStream);
-                MyMapObjects.moMapLayer sLayer = DataIOTools.LoadMapLayer(sr, sFileName);
-                //MyMapObjects.moMapLayer sLayer = UnitTest.TestLoadLayer("test_line");
+                MyMapObjects.moMapLayer sLayer = DataBaseTools.LoadMapLayer(selectLayer);
                 myMapControl.Layers.Add(sLayer);
                 if (myMapControl.Layers.Count == 1)
                 {
@@ -397,12 +388,8 @@ namespace FSGIS
                     myMapControl.RedrawMap();
                 }
 
-                sr.Dispose();
-                sFileStream.Dispose();
-
                 //修改checklistbox
-                AddLayerInCheckList(System.IO.Path.GetFileNameWithoutExtension(sFileName));
-                //AddLayerInCheckList(System.IO.Path.GetFileNameWithoutExtension("test_line"));
+                AddLayerInCheckList(System.IO.Path.GetFileNameWithoutExtension(selectLayer));
             }
             catch (Exception error)
             {

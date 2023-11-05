@@ -203,11 +203,11 @@ namespace FSGIS.SubSystems
                             geometryType = MyMapObjects.moGeometryTypeConstant.Point;
 
                         }
-                        else if (strGeometryType.ToLower() == "multilinestring")
+                        else if (strGeometryType.ToLower() == "linestring")
                         {
                             geometryType = MyMapObjects.moGeometryTypeConstant.MultiPolyline;
                         }
-                        else if (strGeometryType.ToLower() == "multipolygon")
+                        else if (strGeometryType.ToLower() == "polygon")
                         {
                             geometryType = MyMapObjects.moGeometryTypeConstant.MultiPolygon;
                         }
@@ -241,30 +241,30 @@ namespace FSGIS.SubSystems
                         {
                             NetTopologySuite.Geometries.LineString geometryRead = (NetTopologySuite.Geometries.LineString)(new PostGisReader().Read(geometryBytes));
                             MyMapObjects.moParts parts = new MyMapObjects.moParts();                        
-
+                            
+                            MyMapObjects.moPoints points = new MyMapObjects.moPoints();
+                            var coordinates = geometryRead.Coordinates;
+                            foreach (var point in coordinates)
                             {
-                                MyMapObjects.moPoints points = new MyMapObjects.moPoints();
-                                var coordinates = geometryRead.Coordinates;
-                                foreach (var point in coordinates)
-                                {
-                                    points.Add(new MyMapObjects.moPoint(point.X, point.Y));
-                                }
-                                parts.Add(points);
+                                points.Add(new MyMapObjects.moPoint(point.X, point.Y));
                             }
+                            parts.Add(points);
+                            
                             geometry = new MyMapObjects.moMultiPolyline(parts);
                         }
                         else if (geometryType == MyMapObjects.moGeometryTypeConstant.MultiPolygon)
                         {
                             NetTopologySuite.Geometries.Polygon geometryRead = (NetTopologySuite.Geometries.Polygon)(new PostGisReader().Read(geometryBytes));
                             MyMapObjects.moParts parts = new MyMapObjects.moParts();
+                            
+                            MyMapObjects.moPoints points = new MyMapObjects.moPoints();
+                            foreach (var point in geometryRead.Coordinates)
                             {
-                                MyMapObjects.moPoints points = new MyMapObjects.moPoints();
-                                foreach (var point in geometryRead.Coordinates)
-                                {
-                                    points.Add(new MyMapObjects.moPoint(point.X, point.Y));
-                                }
-                                parts.Add(points);
+                                points.Add(new MyMapObjects.moPoint(point.X, point.Y));
                             }
+                            points.RemoveAt(points.Count - 1);
+                            parts.Add(points);
+                            
                             geometry = new MyMapObjects.moMultiPolygon(parts);
                         }
                                                 
@@ -276,7 +276,7 @@ namespace FSGIS.SubSystems
                         } 
                         
                         // 根据读取得到的几何对象和属性对象，新建一个要素并放入要素集中
-                        MyMapObjects.moFeature feature = new MyMapObjects.moFeature(geometryType, geometry,attributes);
+                        MyMapObjects.moFeature feature = new MyMapObjects.moFeature(geometryType, geometry, attributes);
                         features.Add(feature);
                     }
                 }

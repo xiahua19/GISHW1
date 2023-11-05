@@ -119,6 +119,12 @@
     <Compile Include="Forms\AttributesTableForm.Designer.cs">
       <DependentUpon>AttributesTableForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FetchLayerMetaData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FetchLayerMetaData.Designer.cs">
+      <DependentUpon>FetchLayerMetaData.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\LabelRender.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -178,6 +184,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AttributesTableForm.resx">
       <DependentUpon>AttributesTableForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FetchLayerMetaData.resx">
+      <DependentUpon>FetchLayerMetaData.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LabelRender.resx">
       <DependentUpon>LabelRender.cs</DependentUpon>

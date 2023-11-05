@@ -23,8 +23,8 @@ namespace FSGIS.SubSystems
             var layerNames = layerNameTypes.Item1;
             var layerTypes = layerNameTypes.Item2;
 
-            //MessageBox.Show(layerTypes.Count.ToString());
-            //MessageBox.Show(layerNames.Count.ToString());
+            MessageBox.Show(layerTypes.Count.ToString());
+            MessageBox.Show(layerNames.Count.ToString());
 
             string info = "";
             for (int i = 0; i < layerNames.Count; i++)

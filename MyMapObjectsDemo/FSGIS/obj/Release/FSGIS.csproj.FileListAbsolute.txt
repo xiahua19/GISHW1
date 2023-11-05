@@ -100,3 +100,4 @@ D:\GISHW1\MyMapObjectsDemo\FSGIS\bin\Release\NetTopologySuite.IO.PostGis.xml
 D:\GISHW1\MyMapObjectsDemo\FSGIS\bin\Release\MyMapObjects.dll.config
 D:\GISHW1\MyMapObjectsDemo\FSGIS\bin\Release\Npgsql.RawPostgis.dll
 D:\GISHW1\MyMapObjectsDemo\FSGIS\bin\Release\Npgsql.RawPostgis.xml
+D:\GISHW1\MyMapObjectsDemo\FSGIS\obj\Release\FSGIS.Forms.FetchLayerMetaData.resources
