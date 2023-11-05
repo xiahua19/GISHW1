@@ -2334,12 +2334,26 @@ namespace FSGIS
             Help.ShowHelp(this, helpFile);
         }
 
-        private void 从数据库添加ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void 打开图层文件ToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            OpenFileDialog sFileDialog = new OpenFileDialog();
+            string sFileName = "";
+            if (sFileDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                sFileName = sFileDialog.FileName;
+                sFileDialog.Dispose();
+            }
+            else
+            {
+                sFileDialog.Dispose();
+                return;
+            }
 
             try
             {
-                MyMapObjects.moMapLayer sLayer = UnitTest.TestLoadLayer("省级行政区");
+                FileStream sFileStream = new FileStream(sFileName, FileMode.Open);
+                BinaryReader sr = new BinaryReader(sFileStream);
+                MyMapObjects.moMapLayer sLayer = DataIOTools.LoadMapLayer(sr, sFileName);
                 myMapControl.Layers.Add(sLayer);
                 if (myMapControl.Layers.Count == 1)
                 {
@@ -2350,8 +2364,11 @@ namespace FSGIS
                     myMapControl.RedrawMap();
                 }
 
+                sr.Dispose();
+                sFileStream.Dispose();
+
                 //修改checklistbox
-                AddLayerInCheckList(System.IO.Path.GetFileNameWithoutExtension("省级行政区"));
+                AddLayerInCheckList(System.IO.Path.GetFileNameWithoutExtension(sFileName));
             }
             catch (Exception error)
             {

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Windows.Forms;
 
 namespace MyMapObjects
 {
@@ -38,7 +39,7 @@ namespace MyMapObjects
         //绘制点
         internal static void DrawPoint(Graphics g, moRectangle extent, double mapScale, double dpm, double mpu, moPoint point, moSymbol symbol)
         {
-            if (symbol.SymbolType == moSymbolTypeConstant.SimpleMarkerSymbol)
+            //if (symbol.SymbolType == moSymbolTypeConstant.SimpleMarkerSymbol)
             {
                 moSimpleMarkerSymbol sSymbol = (moSimpleMarkerSymbol)symbol;
                 if (sSymbol.Visible == true)
@@ -49,7 +50,7 @@ namespace MyMapObjects
         //绘制线段
         internal static void DrawLine(Graphics g, moRectangle extent, double mapScale, double dpm, double mpu, moPoint point1, moPoint point2, moSymbol symbol)
         {
-            if (symbol.SymbolType == moSymbolTypeConstant.SimpleLineSymbol)
+            //if (symbol.SymbolType == moSymbolTypeConstant.SimpleLineSymbol)
             {
                 moSimpleLineSymbol sSymbol = (moSimpleLineSymbol)symbol;
                 if (sSymbol.Visible == true)
@@ -60,7 +61,7 @@ namespace MyMapObjects
         //绘制点集合（多点）
         internal static void DrawPoints(Graphics g, moRectangle extent, double mapScale, double dpm, double mpu, moPoints points, moSymbol symbol)
         {
-            if (symbol.SymbolType == moSymbolTypeConstant.SimpleMarkerSymbol)
+            //if (symbol.SymbolType == moSymbolTypeConstant.SimpleMarkerSymbol)
             {
                 moSimpleMarkerSymbol sSymbol = (moSimpleMarkerSymbol)symbol;
                 if (sSymbol.Visible == true)

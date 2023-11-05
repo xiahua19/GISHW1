@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace MyMapObjects
 {
@@ -514,7 +515,8 @@ namespace MyMapObjects
             for(Int32 i = 0; i < sFeatureCount; ++i)
             {
                 moFeature sFeature = _Features.GetItem(i);
-                if (IsFeatureInExtent(sFeature, extent) == true)
+                
+                //if (IsFeatureInExtent(sFeature, extent) == true)
                 {
                     moGeometry sGeometry = _Features.GetItem(i).Geometry;
                     moSymbol sSymbol = _Features.GetItem(i).Symbol;

@@ -110,10 +110,10 @@ namespace FSGIS
             this.创建要素,
             this.编辑要素,
             this.移动要素});
-            this.toolStrip.Location = new System.Drawing.Point(0, 30);
+            this.toolStrip.Location = new System.Drawing.Point(0, 28);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this.toolStrip.Size = new System.Drawing.Size(1039, 31);
+            this.toolStrip.Size = new System.Drawing.Size(1039, 27);
             this.toolStrip.TabIndex = 3;
             this.toolStrip.Text = "toolStrip1";
             // 
@@ -123,7 +123,7 @@ namespace FSGIS
             this.箭头.Image = ((System.Drawing.Image)(resources.GetObject("箭头.Image")));
             this.箭头.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.箭头.Name = "箭头";
-            this.箭头.Size = new System.Drawing.Size(29, 28);
+            this.箭头.Size = new System.Drawing.Size(29, 24);
             this.箭头.Text = "箭头";
             this.箭头.Click += new System.EventHandler(this.箭头_Click);
             // 
@@ -223,7 +223,7 @@ namespace FSGIS
             this.checkedListBox1.Location = new System.Drawing.Point(0, 40);
             this.checkedListBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(184, 517);
+            this.checkedListBox1.Size = new System.Drawing.Size(184, 523);
             this.checkedListBox1.TabIndex = 4;
             this.checkedListBox1.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBox1_ItemCheck);
             this.checkedListBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.checkedListBox1_MouseDown);
@@ -508,7 +508,7 @@ namespace FSGIS
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuStrip.Size = new System.Drawing.Size(1039, 30);
+            this.menuStrip.Size = new System.Drawing.Size(1039, 28);
             this.menuStrip.TabIndex = 2;
             this.menuStrip.Text = "menuStrip1";
             // 
@@ -584,10 +584,10 @@ namespace FSGIS
             // 
             // splitter2
             // 
-            this.splitter2.Location = new System.Drawing.Point(184, 61);
+            this.splitter2.Location = new System.Drawing.Point(184, 55);
             this.splitter2.Margin = new System.Windows.Forms.Padding(4);
             this.splitter2.Name = "splitter2";
-            this.splitter2.Size = new System.Drawing.Size(4, 557);
+            this.splitter2.Size = new System.Drawing.Size(4, 563);
             this.splitter2.TabIndex = 12;
             this.splitter2.TabStop = false;
             // 
@@ -596,10 +596,10 @@ namespace FSGIS
             this.panel1.Controls.Add(this.checkedListBox1);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel1.Location = new System.Drawing.Point(0, 61);
+            this.panel1.Location = new System.Drawing.Point(0, 55);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(184, 557);
+            this.panel1.Size = new System.Drawing.Size(184, 563);
             this.panel1.TabIndex = 13;
             // 
             // panel2
@@ -622,11 +622,11 @@ namespace FSGIS
             this.myMapControl.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.myMapControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.myMapControl.FlashColor = System.Drawing.Color.Green;
-            this.myMapControl.Location = new System.Drawing.Point(188, 61);
+            this.myMapControl.Location = new System.Drawing.Point(188, 55);
             this.myMapControl.Margin = new System.Windows.Forms.Padding(5, 8, 5, 8);
             this.myMapControl.Name = "myMapControl";
             this.myMapControl.SelectionColor = System.Drawing.Color.Cyan;
-            this.myMapControl.Size = new System.Drawing.Size(851, 557);
+            this.myMapControl.Size = new System.Drawing.Size(851, 563);
             this.myMapControl.TabIndex = 9;
             this.myMapControl.MapScaleChanged += new MyMapObjects.MyMapControl.MapScaleChangedHandle(this.myMapControl_MapScaleChanged);
             this.myMapControl.AfterTrackingLayerDraw += new MyMapObjects.MyMapControl.AfterTrackingLayerDrawHandle(this.myMapControl_AfterTrackingLayerDraw);
