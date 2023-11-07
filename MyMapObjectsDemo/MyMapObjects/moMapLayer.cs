@@ -696,7 +696,10 @@ namespace MyMapObjects
                             if (sValueType == moValueTypeConstant.dInt16)
                                 sValue = (Int16)_Features.GetItem(i).Attributes.GetItem(sFieldIndex);
                             else if (sValueType == moValueTypeConstant.dInt32)
+                            {
+                                var obj = _Features.GetItem(i).Attributes.GetItem(sFieldIndex);
                                 sValue = (Int32)_Features.GetItem(i).Attributes.GetItem(sFieldIndex);
+                            }
                             else if (sValueType == moValueTypeConstant.dInt64)
                                 sValue = (Int64)_Features.GetItem(i).Attributes.GetItem(sFieldIndex);
                             else if (sValueType == moValueTypeConstant.dSingle)

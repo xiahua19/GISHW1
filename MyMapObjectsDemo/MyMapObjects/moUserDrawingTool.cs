@@ -144,6 +144,17 @@ namespace MyMapObjects
             moMapDrawingTools.DrawMultiPolygon(_MyGraphics, _Extent, _MapScale, _dpm, _mpu, multiPolygon, symbol);
         }
 
+
+        /// <summary>
+        /// 以指定符号绘制指定文字
+        /// </summary>
+        /// <param name="labelText"></param>
+        /// <param name="textSymbol"></param>
+        public void DrawText(string labelText, moTextSymbol textSymbol)
+        {
+            moMapDrawingTools.DrawLabel(_MyGraphics, _dpm, new PointF(0, 0), labelText, textSymbol);
+        }
+
         #endregion
     }
 }

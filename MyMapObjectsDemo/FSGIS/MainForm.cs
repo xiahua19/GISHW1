@@ -31,6 +31,7 @@ namespace FSGIS
         private AttributesTableForm attrTBL;    // 属性表窗口
         private SelectByAttri sbaForm;          // 属性查询窗口
         private LayerRender layerRender;         //符号化窗口 
+        private SeriesRender seriesRender;
         private LabelRender fontRender;         //标注设置窗口
 
         private SelectedAttri selectedAttri;    // 查看选中要素的属性
@@ -2376,6 +2377,74 @@ namespace FSGIS
                 return;
             }
 
+        }
+
+        private void 读取shpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog sFileDialog = new OpenFileDialog();
+            string sFileName = "";
+            if (sFileDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                sFileName = sFileDialog.FileName;
+                projPath = sFileName;
+                sFileDialog.Dispose();
+            }
+            else
+            {
+                sFileDialog.Dispose();
+                return;
+            }
+
+            try
+            {
+                moMapLayer sLayer = ShapefileTools.ReadShapefile(sFileName);
+                myMapControl.Layers.Add(sLayer);
+
+                if (myMapControl.Layers.Count == 1)
+                {
+                    myMapControl.FullExtent();
+                }
+                else
+                {
+                    myMapControl.RedrawMap();
+                }
+
+
+                    //修改checklistbox
+                AddLayerInCheckList(System.IO.Path.GetFileNameWithoutExtension(sLayer.Path));
+
+
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.ToString());
+                return;
+            }
+
+            myMapControl.FullExtent();
+            myMapControl.RedrawMap();
+        }
+
+
+
+        private void 生成动图ToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            if (seriesRender == null || seriesRender.IsDisposed)
+            {
+                seriesRender = new SeriesRender();
+                seriesRender.frmContainer = this;
+            }
+            seriesRender._Layer = myMapControl.Layers.GetItem(selectedLayerIndex);
+            seriesRender.Show(this);
+        }
+
+        private void 保存shpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < myMapControl.Layers.Count; ++i)
+            {
+                ShapefileTools.WriteToShapefile(myMapControl.Layers.GetItem(i), myMapControl.Layers.GetItem(i).Path);
+                //DataIOTools.WriteLayerToFile(myMapControl.Layers.GetItem(i), myMapControl.Layers.GetItem(i).Path);
+            }
         }
     }
 }

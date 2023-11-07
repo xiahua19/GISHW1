@@ -237,7 +237,7 @@ namespace MyMapObjects
                 double[] sEndHSV = RGBToHSV(endColor.R, endColor.G, endColor.B);
                 sColors[0] = startColor;
                 sColors[sBreakCount - 1] = endColor;
-                for (Int32 i = 1; i <= sBreakCount - 2; i++)
+                for (Int32 i = 1; i <= sBreakCount - 1; i++)
                 {
                     H = sStartHSV[0] + i * (sEndHSV[0] - sStartHSV[0]) / sBreakCount;
                     S = sStartHSV[1] + i * (sEndHSV[1] - sStartHSV[1]) / sBreakCount;
@@ -247,7 +247,7 @@ namespace MyMapObjects
                     R = sRGB[0];
                     G = sRGB[1];
                     B = sRGB[2];
-                    sColors[i] = Color.FromArgb(A, R, G, B);
+                    sColors[i - 1] = Color.FromArgb(A, R, G, B);
                 }
             }
             for (Int32 i = 0; i <= sBreakCount - 1; i++)
